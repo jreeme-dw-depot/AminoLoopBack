@@ -1,0 +1,19 @@
+{
+  "name": "user",
+  "plural": "users",
+  "base": "User",
+  "idInjection": true,
+  "properties": {
+    "rememberMe": {
+      "type": "boolean"
+    },
+    "themeName": {
+      "type": "string"
+    }
+
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
