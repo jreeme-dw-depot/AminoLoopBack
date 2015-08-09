@@ -1,13 +1,7 @@
 {
   "db": {
     "name": "db",
-    "connector": "memory"
-  },
-  "MongoDB": {
-    "host": "localhost",
-    "port": 27017,
-    "database": "datawake-depot",
-    "name": "MongoDB",
-    "connector": "mongodb"
+    "connector": "memory",
+    "file": "db.json"
   }
 }
