@@ -3,6 +3,9 @@
   "plural": "users",
   "base": "User",
   "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
   "properties": {
     "rememberMe": {
       "type": "boolean"
@@ -10,7 +13,6 @@
     "themeName": {
       "type": "string"
     }
-
   },
   "validations": [],
   "relations": {},

@@ -4,9 +4,9 @@
     "connector": "memory"
   },
   "MongoDB": {
-    "host": MONGO_HOST_ADDR,
-    "port": MONGO_HOST_PORT,
-    "database": "MongoDatabase",
+    "host": "localhost",
+    "port": 27017,
+    "database": "datawake-depot",
     "name": "MongoDB",
     "connector": "mongodb"
   }

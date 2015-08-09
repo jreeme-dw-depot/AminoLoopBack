@@ -5,26 +5,34 @@
       "loopback/server/models",
       "../common/models",
       "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
     ]
   },
   "AccessToken": {
-    "dataSource": "MongoDB",
+    "dataSource": "db",
     "public": false
   },
   "ACL": {
-    "dataSource": "MongoDB",
+    "dataSource": "db",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "MongoDB",
+    "dataSource": "db",
     "public": false
   },
   "Role": {
-    "dataSource": "MongoDB",
+    "dataSource": "db",
     "public": false
   },
   "user": {
     "dataSource": "MongoDB",
-    "public": true
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }
