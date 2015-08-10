@@ -1,6 +1,6 @@
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
 @import url(//fonts.googleapis.com/css?family=Kaushan+Script);
-/*! 
+/*!
  *   AdminLTE v1.2
  *   Author: AlmsaeedStudio.com
  *   License: Open source - MIT
@@ -13,7 +13,8 @@
 html,
 body {
   overflow-x: hidden!important;
-  font-family: 'Source Sans Pro', sans-serif;
+/*  font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Verdana', Geneva, sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
   height: 100%;
@@ -748,7 +749,7 @@ header.header .logo .icon {
     left: 0px;
   }
 }
-/* 
+/*
     Dropdown menus
 ----------------------------
 */
@@ -1126,14 +1127,16 @@ header.header .logo .icon {
     left: auto;
   }
 }
-/* 
+/*
    All form elements including input, select, textarea etc.
 -----------------------------------------------------------------
 */
 .form-control {
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;
-  border-radius: 0px !important;
+  font-family: 'Verdana', Geneva, sans-serif;
+  font-size: 18px;
+  border-radius: 3px !important;
   box-shadow: none;
 }
 .form-control:focus {
@@ -1176,7 +1179,7 @@ header.header .logo .icon {
 .radio {
   padding-left: 0;
 }
-/* 
+/*
     Compenent: Progress bars
 --------------------------------
 */
@@ -2037,7 +2040,7 @@ Component: timeline
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
-/* 
+/*
     Component: callout
 ------------------------
 */
@@ -2077,7 +2080,7 @@ Component: timeline
 .callout.callout-info h4 {
   color: #3A87AD;
 }
-/* 
+/*
     Component: alert
 ------------------------
 */
@@ -2389,7 +2392,7 @@ Component: timeline
   margin-top: 30px;
   text-align: center;
 }
-/* 
+/*
     Page: register and login
 */
 .form-box {
@@ -2410,13 +2413,13 @@ Component: timeline
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  background: #3d9970;
+  background: rgba(32, 30, 184, 0.80);
   box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
   padding: 20px 10px;
   text-align: center;
   font-size: 26px;
-  font-weight: 300;
-  color: #fff;
+  font-weight: 400;
+  color: #c0c0c0;
 }
 .form-box .body,
 .form-box .footer {
@@ -2455,7 +2458,7 @@ Component: timeline
     width: 90%;
   }
 }
-/* 
+/*
     Page: 404 and 500 error pages
 ------------------------------------
 */
@@ -2505,7 +2508,7 @@ Component: timeline
 .error-page:after {
   clear: both;
 }
-/* 
+/*
     Page: Invoice
 */
 .invoice {
@@ -2538,12 +2541,12 @@ Component: timeline
     white-space: normal!important;
   }
 }
-/* 
+/*
     Skins
     -----
 */
-/* 
-    Skin Blue 
+/*
+    Skin Blue
     ---------
 */
 /* skin-blue navbar */

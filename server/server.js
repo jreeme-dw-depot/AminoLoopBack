@@ -18,7 +18,7 @@ var env = require('get-env')({
 });
 
 // Set up the /favicon.ico
-app.use(loopback.favicon());
+app.use(loopback.favicon(path.join(__dirname, 'waveicon16.png')));
 
 // request pre-processing middleware
 app.use(loopback.compress());
@@ -42,7 +42,7 @@ if (env !== 'prod') {
   console.log("Running app in development mode");
 } else {
   staticPath = path.resolve(__dirname, '../dist/');
-  console.log("Running app in prodction mode");
+  console.log("Running app in production mode");
 }
 
 app.use(loopback.static(staticPath));
