@@ -1,10 +1,7 @@
 'use strict';
 var app = angular.module('com.module.users');
-
-app.controller('UsersCtrl', function($scope, $stateParams, $state, CoreService,
-  User, gettextCatalog) {
-
-
+app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
+                                      User, gettextCatalog) {
   if ($stateParams.id) {
     User.findOne({
       filter: {
@@ -13,56 +10,52 @@ app.controller('UsersCtrl', function($scope, $stateParams, $state, CoreService,
         },
         include: ['roles', 'identities', 'credentials', 'accessTokens']
       }
-    }, function(result) {
+    }, function (result) {
       $scope.user = result;
-    }, function(err) {
+    }, function (err) {
       console.log(err);
     });
   } else {
     $scope.user = {};
   }
-
-  $scope.delete = function(id) {
+  $scope.delete = function (id) {
     CoreService.confirm(gettextCatalog.getString('Are you sure?'),
       gettextCatalog.getString('Deleting this cannot be undone'),
-      function() {
-        User.deleteById(id, function() {
+      function () {
+        User.deleteById(id, function () {
             CoreService.toastSuccess(gettextCatalog.getString(
               'User deleted'), gettextCatalog.getString(
               'Your user is deleted!'));
             $state.go('app.users.list');
           },
-          function(err) {
+          function (err) {
             CoreService.toastError(gettextCatalog.getString(
               'Error deleting user'), gettextCatalog.getString(
               'Your user is not deleted:' + err));
           });
       },
-      function() {
+      function () {
         return false;
       });
   };
-
   $scope.loading = true;
   $scope.users = User.find({
     filter: {
       include: ['roles']
     }
-  }, function() {
+  }, function () {
     $scope.loading = false;
   });
-
-  $scope.onSubmit = function() {
-    User.upsert($scope.user, function() {
+  $scope.onSubmit = function () {
+    User.upsert($scope.user, function () {
       CoreService.toastSuccess(gettextCatalog.getString('User saved'),
         gettextCatalog.getString('This user is save!'));
       $state.go('^.list');
-    }, function(err) {
+    }, function (err) {
       CoreService.toastError(gettextCatalog.getString(
         'Error saving user: ', +err));
     });
   };
-
   $scope.formFields = [{
     key: 'username',
     type: 'text',
@@ -84,11 +77,9 @@ app.controller('UsersCtrl', function($scope, $stateParams, $state, CoreService,
     label: gettextCatalog.getString('Last name'),
     required: true
   }];
-
   $scope.formOptions = {
     uniqueFormId: true,
     hideSubmit: false,
     submitCopy: gettextCatalog.getString('Save')
   };
-
 });

@@ -15,6 +15,7 @@ angular.module('com.module.core')
     CoreService, User, gettextCatalog) {
 
     $scope.currentUser = User.getCurrent();
+    $scope.notLoggedIn = true;
 
     $scope.menuoptions = $rootScope.menu;
 

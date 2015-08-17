@@ -9,7 +9,8 @@
 angular.module('com.module.users')
   .directive('login', function() {
     return {
-      templateUrl: 'modules/users/views/login.html',
+      //templateUrl: 'modules/users/views/login.html',
+      templateUrl: 'modules/users/views/login',
       restrict: 'E'
     };
   });
