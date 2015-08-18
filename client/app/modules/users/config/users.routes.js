@@ -30,7 +30,8 @@ angular.module('com.module.users')
       })
       .state('app.users.add', {
         url: '/add',
-        templateUrl: 'modules/users/views/form.html',
+        //templateUrl: 'modules/users/views/form.html',
+        templateUrl: 'modules/users/views/form',
         controller: 'UsersCtrl',
         authenticate: true
       })

@@ -1,0 +1,25 @@
+//
+   Created by jreeme-dw-depot on 8/13/15.
+
+.box
+  .box-header
+    span.box-title
+      .input-group
+        a.btn.btn-default(translate, href='', ui-sref='^.list', style='float: left;')
+          i.fa.fa-arrow-left Users
+    .box-tools.pull-right
+      span.pull-right.btn-group
+        button.btn.btn-primary.btn-success.btn-sm(translate, ng-click='onSubmit()')
+          i.fa.fa-save Save
+        a.btn.btn-sm.btn-default(href='', ng-click='delete({id: page.id})')
+          i.fa.fa-trash-o
+  .box-body
+    .alert.alert-danger(translate, ng-if='addError') Could not add user!
+    formly-form(result='user', fields='formFields', options='formOptions', ng-submit='onSubmit()')
+    .form-group(ng-if='!user.id')
+      label(translate) Password
+      input.form-control(required, type='text', ng-model='user.password')
+  .overlay(ng-if='loading')
+  .overlay(ng-if='loading-img')
+
+
