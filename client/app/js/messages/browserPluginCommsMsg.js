@@ -1,12 +1,12 @@
 angular.module('loopbackApp')
-  .service('genericMsg', ['$rootScope', function ($rootScope) {
+  .service('BrowserPluginCommsMsg', ['$rootScope', function ($rootScope) {
     this.broadcast = function broadcast() {
-      var args = ['genericMsg'];
+      var args = ['browserPluginCommsMsg'];
       Array.prototype.push.apply(args, arguments);
       $rootScope.$broadcast.apply($rootScope, args);
     };
     this.listen = function (callback) {
-      $rootScope.$on('genericMsg', callback)
+      $rootScope.$on('browserPluginCommsMsg', callback)
     }
   }]);
 

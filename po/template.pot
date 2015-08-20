@@ -18,7 +18,7 @@ msgstr ""
 msgid "<i class=\"fa fa-save\"></i>  Save"
 msgstr ""
 
-#: client/app/modules/users/views/form.html:12
+#: client/app/modules/users/views/form.html:16
 msgid "<i class=\"fa fa-save\"></i> Save"
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr ""
 #: client/app/modules/posts/services/posts.service.js:22
 #: client/app/modules/products/controllers/products.ctrl.js:42
 #: client/app/modules/settings/controllers/settings.ctrl.js:28
-#: client/app/modules/users/controllers/users.ctrl.js:26
+#: client/app/modules/users/controllers/users.ctrl.js:22
 msgid "Are you sure?"
 msgstr ""
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Could not add setting!"
 msgstr ""
 
-#: client/app/modules/users/views/form.html:21
+#: client/app/modules/users/views/form.html:29
 msgid "Could not add user!"
 msgstr ""
 
@@ -207,6 +207,10 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
+#: client/app/modules/users/views/login.html:13
+msgid "Datawake Sign In"
+msgstr ""
+
 #: client/app/modules/products/views/list.html:9
 msgid "Delete category"
 msgstr ""
@@ -219,7 +223,7 @@ msgstr ""
 #: client/app/modules/posts/services/posts.service.js:23
 #: client/app/modules/products/controllers/products.ctrl.js:43
 #: client/app/modules/settings/controllers/settings.ctrl.js:29
-#: client/app/modules/users/controllers/users.ctrl.js:27
+#: client/app/modules/users/controllers/users.ctrl.js:23
 msgid "Deleting this cannot be undone"
 msgstr ""
 
@@ -233,7 +237,7 @@ msgid "Don't worry we won't spam your inbox"
 msgstr ""
 
 #: client/app/modules/users/controllers/profile.ctrl.js:19
-#: client/app/modules/users/controllers/users.ctrl.js:74
+#: client/app/modules/users/controllers/users.ctrl.js:67
 msgid "E-mail"
 msgstr ""
 
@@ -262,12 +266,12 @@ msgstr ""
 msgid "Edit setting"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:30
+#: client/app/modules/users/controllers/login.ctrl.js:26
 #: client/app/modules/users/controllers/register.ctrl.js:51
 msgid "Email"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:38
+#: client/app/modules/users/controllers/login.ctrl.js:34
 #: client/app/modules/users/controllers/register.ctrl.js:61
 msgid "Email address needs to be valid"
 msgstr ""
@@ -313,7 +317,7 @@ msgstr ""
 msgid "Error deleting setting"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:36
+#: client/app/modules/users/controllers/users.ctrl.js:32
 msgid "Error deleting user"
 msgstr ""
 
@@ -329,7 +333,7 @@ msgstr ""
 msgid "Error saving profile"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:61
+#: client/app/modules/users/controllers/users.ctrl.js:55
 msgid "Error saving user:"
 msgstr ""
 
@@ -370,7 +374,7 @@ msgid "First Name"
 msgstr ""
 
 #: client/app/modules/users/controllers/profile.ctrl.js:24
-#: client/app/modules/users/controllers/users.ctrl.js:79
+#: client/app/modules/users/controllers/users.ctrl.js:72
 msgid "First name"
 msgstr ""
 
@@ -396,15 +400,15 @@ msgid "Last Name"
 msgstr ""
 
 #: client/app/modules/users/controllers/profile.ctrl.js:29
-#: client/app/modules/users/controllers/users.ctrl.js:84
+#: client/app/modules/users/controllers/users.ctrl.js:77
 msgid "Last name"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:96
+#: client/app/modules/users/controllers/login.ctrl.js:86
 msgid "Logged in"
 msgstr ""
 
-#: client/app/modules/core/controllers/main.ctrl.js:28
+#: client/app/modules/core/controllers/main.ctrl.js:25
 msgid "Logged out"
 msgstr ""
 
@@ -458,7 +462,7 @@ msgstr ""
 msgid "New page"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:39
+#: client/app/modules/users/controllers/login.ctrl.js:35
 #: client/app/modules/users/controllers/register.ctrl.js:62
 msgid "Nice email address!"
 msgstr ""
@@ -482,7 +486,7 @@ msgstr ""
 msgid "Oops"
 msgstr ""
 
-#: client/app/modules/users/views/login.html:17
+#: client/app/modules/users/views/login.html:34
 msgid "Or register"
 msgstr ""
 
@@ -505,10 +509,13 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:44
+#: client/app/modules/users/controllers/login.ctrl.js:40
 #: client/app/modules/users/controllers/register.ctrl.js:71
-#: client/app/modules/users/views/form.html:26
 msgid "Password"
+msgstr ""
+
+#: client/app/modules/users/views/form.html:41
+msgid "Password!!"
 msgstr ""
 
 #: client/app/modules/products/controllers/products.ctrl.js:96
@@ -584,7 +591,7 @@ msgstr ""
 #: client/app/modules/products/controllers/categories.ctrl.js:30
 #: client/app/modules/products/controllers/products.ctrl.js:106
 #: client/app/modules/users/controllers/profile.ctrl.js:36
-#: client/app/modules/users/controllers/users.ctrl.js:91
+#: client/app/modules/users/controllers/users.ctrl.js:83
 msgid "Save"
 msgstr ""
 
@@ -602,11 +609,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: client/app/modules/users/views/login.html:7
-msgid "Sign In"
-msgstr ""
-
-#: client/app/modules/users/views/login.html:16
+#: client/app/modules/users/views/login.html:30
 msgid "Sign in"
 msgstr ""
 
@@ -630,7 +633,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:51
+#: client/app/modules/users/controllers/login.ctrl.js:47
 msgid "Stay signed in"
 msgstr ""
 
@@ -677,7 +680,7 @@ msgstr ""
 msgid "This note could no be saved:"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:58
+#: client/app/modules/users/controllers/users.ctrl.js:52
 msgid "This user is save!"
 msgstr ""
 
@@ -710,16 +713,16 @@ msgstr ""
 msgid "Upload queue"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:30
+#: client/app/modules/users/controllers/users.ctrl.js:26
 msgid "User deleted"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:57
+#: client/app/modules/users/controllers/users.ctrl.js:51
 msgid "User saved"
 msgstr ""
 
 #: client/app/modules/users/controllers/profile.ctrl.js:14
-#: client/app/modules/users/controllers/users.ctrl.js:69
+#: client/app/modules/users/controllers/users.ctrl.js:62
 msgid "Username"
 msgstr ""
 
@@ -740,11 +743,11 @@ msgstr ""
 msgid "Welcome!"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:97
+#: client/app/modules/users/controllers/login.ctrl.js:87
 msgid "You are logged in!"
 msgstr ""
 
-#: client/app/modules/core/controllers/main.ctrl.js:29
+#: client/app/modules/core/controllers/main.ctrl.js:26
 msgid "You are logged out!"
 msgstr ""
 
@@ -756,7 +759,7 @@ msgstr ""
 msgid "You can just drag them in this window!"
 msgstr ""
 
-#: client/app/modules/users/controllers/login.ctrl.js:37
+#: client/app/modules/users/controllers/login.ctrl.js:33
 #: client/app/modules/users/controllers/register.ctrl.js:60
 msgid "You need an email address"
 msgstr ""
@@ -862,11 +865,11 @@ msgstr ""
 msgid "Your setting is safe with us!"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:31
+#: client/app/modules/users/controllers/users.ctrl.js:27
 msgid "Your user is deleted!"
 msgstr ""
 
-#: client/app/modules/users/controllers/users.ctrl.js:37
+#: client/app/modules/users/controllers/users.ctrl.js:33
 msgid "Your user is not deleted:"
 msgstr ""
 

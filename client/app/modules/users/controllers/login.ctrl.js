@@ -9,7 +9,7 @@
  * Contrller for Login Page
  **/
 angular.module('com.module.users')
-  .controller('LoginCtrl', function ($scope, $routeParams, $location,
+  .controller('LoginCtrl', function ($scope, $routeParams, $location, BrowserPluginService,
                                      CoreService, User, AppAuth, AuthProvider, gettextCatalog) {
     var TWO_WEEKS = 1000 * 60 * 60 * 24 * 7 * 2;
     $scope.credentials = {
@@ -76,10 +76,6 @@ angular.module('com.module.users')
         function (user) {
           console.log(user);
           console.log(user.user);
-/*          console.log(user.id); // => acess token
-          console.log(user.ttl); // => 1209600 time to live
-          console.log(user.created); // => 2013-12-20T21:10:20.377Z
-          console.log(user.userId); // => 1*/
           var next = $location.nextAfterLogin || '/';
           $location.nextAfterLogin = null;
           AppAuth.currentUser = $scope.loginResult.user;
@@ -89,6 +85,7 @@ angular.module('com.module.users')
             next = '/';
           }
           $location.path(next);
+          BrowserPluginService.notifyPluginOfLoginSuccess(user);
         },
         function (res) {
           $scope.loginError = res.data.error;
