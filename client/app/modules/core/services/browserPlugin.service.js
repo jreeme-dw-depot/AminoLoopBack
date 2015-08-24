@@ -7,14 +7,15 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
     me.pluginOrigin = '';
     BrowserPluginCommsMsg.listen(function (_event, event) {
       try {
-        var msg = angular.fromJson(event.data);
+        var msg = event.data;
+        //var msg = angular.fromJson(event.data);
         if (msg.type == 'handshake') {
           me.pluginOrigin = event.origin;
-          $window.alert(me.pluginOrigin);
+          //$window.alert('Web Page has handshake req from: ' + me.pluginOrigin);
           var msg = {
             type: 'handshake-ack'
           }
-          $window.postMessage(angular.toJson(msg), event.origin);
+          $window.postMessage(msg, event.origin);
         }
       }
       catch (ex) {
@@ -22,7 +23,12 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
       }
     });
     me.notifyPluginOfLoginSuccess = function (user) {
-      $window.alert(this.pluginOrigin);
+      //$window.alert('Ready to send Login Success message to ' + this.pluginOrigin);
+      var msg = {
+        type: 'login-success-target-content-script',
+        user: user
+      }
+      $window.postMessage(msg, me.pluginOrigin);
     }
     $window.addEventListener('message', function (event) {
       BrowserPluginCommsMsg.broadcast(event);
