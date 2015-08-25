@@ -5,13 +5,14 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
     var me = this;
     me.env = ENV;
     me.pluginOrigin = '';
+    me.isPluginInstalled = function(){
+      return true;
+    };
     BrowserPluginCommsMsg.listen(function (_event, event) {
       try {
         var msg = event.data;
-        //var msg = angular.fromJson(event.data);
         if (msg.type == 'handshake') {
           me.pluginOrigin = event.origin;
-          //$window.alert('Web Page has handshake req from: ' + me.pluginOrigin);
           var msg = {
             type: 'handshake-ack'
           }

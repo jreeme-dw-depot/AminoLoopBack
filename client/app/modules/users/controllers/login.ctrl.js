@@ -9,9 +9,18 @@
  * Contrller for Login Page
  **/
 angular.module('com.module.users')
-  .controller('LoginCtrl', function ($scope, $routeParams, $location, BrowserPluginService,
+  .controller('LoginCtrl', function ($scope, $routeParams, $location, BrowserPluginService, BrowserPluginCommsMsg,
                                      CoreService, User, AppAuth, AuthProvider, gettextCatalog) {
     var TWO_WEEKS = 1000 * 60 * 60 * 24 * 7 * 2;
+    var isFireFox = typeof InstallTrigger !== 'undefined';
+    /*    var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+     var isChrome = !!window.chrome && !isOpera;
+     var isIE = false || !!document.documentMode;*/
+    BrowserPluginCommsMsg.listen(function () {
+      $scope.showDownloadPluginButton = false;
+    });
+    $scope.showDownloadPluginButton = isFireFox;
     $scope.credentials = {
       ttl: TWO_WEEKS,
       rememberMe: true
@@ -68,6 +77,10 @@ angular.module('com.module.users')
         });
       }
     });
+    $scope.getPlugin = function(){
+      //All we do here is make the 'GetPlugin' button go away
+      $scope.showDownloadPluginButton = false;
+    };
     $scope.login = function () {
       $scope.loginResult = User.login({
           include: 'user',

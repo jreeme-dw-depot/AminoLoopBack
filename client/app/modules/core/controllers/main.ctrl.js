@@ -14,7 +14,7 @@ angular.module('com.module.core')
   .controller('MainCtrl', function ($scope, $rootScope, $state, $location, BrowserPluginService,
                                     CoreService, User, gettextCatalog) {
     $scope.currentUser = User.getCurrent();
-    $scope.notLoggedIn = true;
+    $scope.noOneLoggedIn = true;
     $scope.menuoptions = $rootScope.menu;
     $scope.logout = function () {
       User.logout(function () {
