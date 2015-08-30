@@ -4,7 +4,7 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
   function (ENV, $window, BrowserPluginCommsMsg) {
     var me = this;
     me.env = ENV;
-    me.pluginOrigin = '';
+    me.pluginOrigin = null;
     me.isPluginInstalled = function(){
       return true;
     };
@@ -25,6 +25,9 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
     });
     me.notifyPluginOfLoginSuccess = function (user) {
       //$window.alert('Ready to send Login Success message to ' + this.pluginOrigin);
+      if(!me.pluginOrigin){
+        return;
+      }
       var msg = {
         type: 'login-success-target-content-script',
         user: user

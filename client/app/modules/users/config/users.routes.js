@@ -15,7 +15,8 @@ angular.module('com.module.users')
       .state('app.users', {
         abstract: true,
         url: '/users',
-        templateUrl: 'modules/users/views/main.html'
+        //templateUrl: 'modules/users/views/main.html'
+        templateUrl: 'modules/users/views/main'
       })
       .state('app.users.profile', {
         url: '/profile',
@@ -24,7 +25,8 @@ angular.module('com.module.users')
       })
       .state('app.users.list', {
         url: '',
-        templateUrl: 'modules/users/views/list.html',
+        //templateUrl: 'modules/users/views/list.html',
+        templateUrl: 'modules/users/views/list',
         controller: 'UsersCtrl',
         authenticate: true
       })

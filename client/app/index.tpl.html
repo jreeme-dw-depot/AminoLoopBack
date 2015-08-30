@@ -26,7 +26,7 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 <div ui-view
-     ng-class="{'full-height': currentUser.id === undefined}"></div>
+     ng-class="{'full-height': noOneLoggedIn}"></div>
 
 <div ng-controller="toasty-controller">
   <toasty-container toasty-defaults='{"timeout": 3000, "close-button":true, "sound": false}'></toasty-container>
