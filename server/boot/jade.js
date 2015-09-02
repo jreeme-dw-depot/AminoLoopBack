@@ -3,6 +3,9 @@ module.exports = function (app) {
   var path = require('path');
   app.set('view engine', 'jade');
   app.set('views', path.join(__dirname, '../../client/app/modules'));
+  app.get('/modules/sandbox/views/grid', function (req, res) {
+    res.render('sandbox/views/grid', {title: 'Grid'});
+  });
   app.get('/modules/users/views/main', function (req, res) {
     res.render('users/views/main', {title: 'Main'});
   });

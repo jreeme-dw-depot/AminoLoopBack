@@ -60,7 +60,8 @@ angular.module('com.module.sandbox')
       })
       .state('app.sandbox.grid', {
         url: '/grid',
-        templateUrl: 'modules/sandbox/views/grid.html',
+        templateUrl: 'modules/sandbox/views/grid',
+        //templateUrl: 'modules/sandbox/views/grid.html',
         controller: 'SandboxGridCtrl'
       })
       .state('app.sandbox.autofields', {

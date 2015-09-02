@@ -6,7 +6,7 @@
     table.table.table-bordered.table-striped
       tr(ng-repeat='user in users')
         td
-          a(href='' ui-sref='app.users.view({id: user.id})') {{user.username}}
+          a(href='', ui-sref='app.users.view({id: user.id})') {{user.username}}
           span.text-muted {{user.email}}
           span.label.label-default(ng-repeat="role in user.roles") {{role.name}}
           span.pull-right

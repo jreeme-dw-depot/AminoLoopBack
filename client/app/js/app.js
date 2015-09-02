@@ -8,48 +8,46 @@
  * Main module of the application.
  */
 angular.module('loopbackApp', [
-    'angular-loading-bar',
-    'angular.filter',
-    'angularBootstrapNavTree',
-    'angularFileUpload',
-    'btford.markdown',
-    'oitozero.ngSweetAlert',
-    'config',
-    'formly',
-    'lbServices',
-    'monospaced.elastic',
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'ui.bootstrap',
-    'ui.codemirror',
-    'ui.gravatar',
-    'ui.grid',
-    'ui.router',
-    'toasty',
-    'autofields',
-    'gettext',
-    'com.module.core',
-    'com.module.about',
-
-    'com.module.events',
-    'com.module.files',
-    'com.module.notes',
-    'com.module.pages',
-    'com.module.posts',
-    'com.module.products',
-    'com.module.sandbox',
-
-    'com.module.settings',
-    'com.module.users'
-  ])
-  .run(function($rootScope, $cookies, gettextCatalog) {
-
+  'angular-loading-bar',
+  'angular.filter',
+  'angularBootstrapNavTree',
+  'angularFileUpload',
+  'btford.markdown',
+  'oitozero.ngSweetAlert',
+  'config',
+  'formly',
+  'lbServices',
+  'monospaced.elastic',
+  'ngAnimate',
+  'ngCookies',
+  'ngResource',
+  'ngRoute',
+  'ngSanitize',
+  'ngTouch',
+  'ui.bootstrap',
+  'ui.codemirror',
+  'ui.gravatar',
+  'ui.grid',
+  'angularGrid',
+  'ui.router',
+  'ui.layout',
+  'toasty',
+  'autofields',
+  'gettext',
+  'com.module.core',
+  'com.module.about',
+  'com.module.events',
+  'com.module.files',
+  'com.module.notes',
+  'com.module.pages',
+  'com.module.posts',
+  'com.module.products',
+  'com.module.sandbox',
+  'com.module.settings',
+  'com.module.users'
+])
+  .run(function ($rootScope, $cookies, gettextCatalog) {
     $rootScope.locales = {
-
       'de': {
         lang: 'de',
         country: 'DE',
@@ -81,18 +79,13 @@ angular.module('loopbackApp', [
         name: gettextCatalog.getString('Russian')
       }
     }
-
     var lang = $cookies.lang || navigator.language || navigator.userLanguage;
-
     $rootScope.locale = $rootScope.locales[lang];
-
     if ($rootScope.locale === undefined) {
       $rootScope.locale = $rootScope.locales[lang];
       if ($rootScope.locale === undefined) {
         $rootScope.locale = $rootScope.locales['en'];
       }
     }
-
     gettextCatalog.setCurrentLanguage($rootScope.locale.lang);
-
   });
