@@ -18,4 +18,7 @@ module.exports = function (app) {
   app.get('/modules/users/views/login', function (req, res) {
     res.render('users/views/login', {title: 'Login'});
   });
+  app.get('/modules/users/views/register', function (req, res) {
+    res.render('users/views/register', {title: 'Login'});
+  });
 };

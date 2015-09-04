@@ -16,11 +16,11 @@ app.controller('NotesCtrl', function($scope, $state, $stateParams, NotesService,
     required: true
   }];
 
-  $scope.formOptions = {
+/*  $scope.formOptions = {
     uniqueFormId: true,
     hideSubmit: false,
     submitCopy: 'Save'
-  };
+  };*/
 
   $scope.delete = function(id) {
     NotesService.deleteNote(id, function() {

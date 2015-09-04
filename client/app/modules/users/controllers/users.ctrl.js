@@ -39,13 +39,14 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
       });
   };
   $scope.loading = true;
-  $scope.users = User.find({
+  $scope.safeDisplayedUsers = User.find({
     filter: {
       include: ['roles']
     }
   }, function () {
     $scope.loading = false;
   });
+  $scope.displayedUsers = [].concat($scope.safeDisplayedUsers);
   $scope.onSubmit = function () {
     User.upsert($scope.user, function () {
       CoreService.toastSuccess(gettextCatalog.getString('User saved'),
@@ -57,29 +58,33 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
     });
   };
   $scope.formFields = [{
-    key: 'username',
-    type: 'text',
-    label: gettextCatalog.getString('Username'),
-    required: true
+    key: 'email',
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('Username'),
+      disabled: true
+    }
   }, {
     key: 'email',
-    type: 'email',
-    label: gettextCatalog.getString('E-mail'),
-    required: true
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('E-mail'),
+      type: 'email',
+      required: true
+    }
   }, {
     key: 'firstName',
-    type: 'text',
-    label: gettextCatalog.getString('First name'),
-    required: true
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('First name'),
+      required: true
+    }
   }, {
     key: 'lastName',
-    type: 'text',
-    label: gettextCatalog.getString('Last name'),
-    required: true
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('Last name'),
+      required: true
+    }
   }];
-  $scope.formOptions = {
-    uniqueFormId: true,
-    hideSubmit: false,
-    submitCopy: gettextCatalog.getString('Save')
-  };
 });

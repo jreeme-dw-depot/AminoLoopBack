@@ -1,15 +1,18 @@
 'use strict';
 var app = angular.module('com.module.core');
-app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
-  function (ENV, $window, BrowserPluginCommsMsg) {
+app.service('BrowserPluginService', ['ENV', '$window', 'UserLoginOrLogoutMsg',
+  function (ENV, $window, UserLoginOrLogoutMsg) {
     var me = this;
     me.env = ENV;
     me.pluginOrigin = null;
-    me.isPluginInstalled = function(){
+    me.isPluginInstalled = function () {
       return true;
     };
-    BrowserPluginCommsMsg.listen(function (_event, event) {
+    UserLoginOrLogoutMsg.listen(function (_event, event) {
       try {
+        if(!event || (typeof event !== 'object') || !event.data){
+          return;
+        }
         var msg = event.data;
         if (msg.type == 'handshake') {
           me.pluginOrigin = event.origin;
@@ -25,7 +28,9 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
     });
     me.notifyPluginOfLoginSuccess = function (user) {
       //$window.alert('Ready to send Login Success message to ' + this.pluginOrigin);
-      if(!me.pluginOrigin){
+      if (!me.pluginOrigin) {
+        //If not in FireFox just let people know a login or out occurred
+        UserLoginOrLogoutMsg.broadcast(true);
         return;
       }
       var msg = {
@@ -35,7 +40,7 @@ app.service('BrowserPluginService', ['ENV', '$window', 'BrowserPluginCommsMsg',
       $window.postMessage(msg, me.pluginOrigin);
     }
     $window.addEventListener('message', function (event) {
-      BrowserPluginCommsMsg.broadcast(event);
+      UserLoginOrLogoutMsg.broadcast(event);
     });
   }]);
 

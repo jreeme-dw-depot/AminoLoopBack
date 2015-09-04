@@ -100,11 +100,11 @@ angular.module('com.module.products')
       label: gettextCatalog.getString('Price')
     }];
 
-    $scope.formOptions = {
+/*    $scope.formOptions = {
       uniqueFormId: true,
       hideSubmit: false,
       submitCopy: gettextCatalog.getString('Save')
-    };
+    };*/
 
     $scope.onSubmit = function() {
       Product.upsert($scope.product, function() {

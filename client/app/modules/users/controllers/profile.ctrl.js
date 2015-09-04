@@ -30,11 +30,11 @@ angular.module('com.module.users')
       required: true
     }];
 
-    $scope.formOptions = {
+/*    $scope.formOptions = {
       uniqueFormId: true,
       hideSubmit: false,
       submitCopy: gettextCatalog.getString('Save')
-    };
+    };*/
 
     $scope.onSubmit = function() {
       User.upsert($scope.user, function() {

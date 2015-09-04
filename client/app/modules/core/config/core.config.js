@@ -1,28 +1,24 @@
 'use strict';
 var app = angular.module('com.module.core');
-app.run(function($rootScope, Setting, gettextCatalog) {
+app.run(function ($rootScope, Setting, gettextCatalog) {
 
   // Left Sidemenu
   $rootScope.menu = [];
-
   // Add Sidebar Menu
-  $rootScope.addMenu = function(name, uisref, icon) {
+  $rootScope.addMenu = function (name, uisref, icon) {
     $rootScope.menu.push({
       name: name,
       sref: uisref,
       icon: icon
     });
   };
-
   // Add Menu Dashboard
   $rootScope.addMenu(gettextCatalog.getString('Dashboard'), 'app.home',
     'fa-dashboard');
-
   // Dashboard
   $rootScope.dashboardBox = [];
-
   // Add Dashboard Box
-  $rootScope.addDashboardBox = function(name, color, icon, quantity, href) {
+  $rootScope.addDashboardBox = function (name, color, icon, quantity, href) {
     $rootScope.dashboardBox.push({
       name: name,
       color: color,
@@ -31,18 +27,15 @@ app.run(function($rootScope, Setting, gettextCatalog) {
       href: href
     });
   };
-
   // Get Settings for Database
-  $rootScope.setSetting = function(key, value) {
-
+  $rootScope.setSetting = function (key, value) {
     Setting.find({
       filter: {
         where: {
           key: key
         }
       }
-    }, function(data) {
-
+    }, function (data) {
       if (data.length) {
         data[0].value = value;
         data[0].$save();
@@ -50,27 +43,25 @@ app.run(function($rootScope, Setting, gettextCatalog) {
         Setting.create({
           key: key,
           value: value
-        }, function(data) {
+        }, function (data) {
           console.log(data);
         });
       }
       $rootScope.loadSettings();
     });
   };
-
   // Load Settings blank
   $rootScope.settings = {};
-
   // Get Settings for Loopback Service
-  $rootScope.loadSettings = function() {
-    Setting.find(function(settings) {
+  $rootScope.loadSettings = function () {
+    Setting.find(function (settings) {
       $rootScope.settings.data = settings;
     });
   };
-
 });
-
-app.config(function(formlyConfigProvider) {
+app.config(function (formlyConfigProvider) {
+  //Don't need to do this with formly v.6.x. Using Bootstrap types.
+  return;
   var templates = 'modules/core/views/elements/fields/';
   var formly = templates + 'formly-field-';
   var fields = [
@@ -84,16 +75,24 @@ app.config(function(formlyConfigProvider) {
     'text',
     'textarea'
   ];
-
-  angular.forEach(fields, function(val) {
-    formlyConfigProvider.setTemplateUrl(val, formly + val + '.html');
+  angular.forEach(fields, function (val) {
+    formlyConfigProvider.setType({
+      name: val,
+      templateUrl: formly + val + '.html'
+    });
+    //formlyConfigProvider.setTemplateUrl(val, formly + val + '.html');
   });
-
-  formlyConfigProvider.setTemplateUrl('date', templates + 'date.html');
-  formlyConfigProvider.setTemplateUrl('time', templates + 'time.html');
-
+  formlyConfigProvider.setType({
+    name: 'date',
+    templateUrl: templates + 'date.html'
+  });
+  //formlyConfigProvider.setTemplateUrl('date', templates + 'date.html');
+  formlyConfigProvider.setType({
+    name: 'time',
+    templateUrl: templates + 'time.html'
+  });
+  //formlyConfigProvider.setTemplateUrl('time', templates + 'time.html');
 });
-
-app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
   cfpLoadingBarProvider.includeSpinner = false;
 }]);

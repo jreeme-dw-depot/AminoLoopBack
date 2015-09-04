@@ -120,11 +120,11 @@ angular.module('com.module.events')
 
     ];
 
-    $scope.formOptions = {
+/*    $scope.formOptions = {
       uniqueFormId: true,
       hideSubmit: false,
       submitCopy: gettextCatalog.getString('Save')
-    };
+    };*/
     $scope.alerts = [];
 
     $scope.onSubmit = function() {

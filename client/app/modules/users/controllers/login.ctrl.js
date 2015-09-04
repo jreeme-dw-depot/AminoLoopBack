@@ -9,7 +9,7 @@
  * Contrller for Login Page
  **/
 angular.module('com.module.users')
-  .controller('LoginCtrl', function ($scope, $routeParams, $location, BrowserPluginService, BrowserPluginCommsMsg,
+  .controller('LoginCtrl', function ($scope, $routeParams, $location, BrowserPluginService, UserLoginOrLogoutMsg,
                                      CoreService, User, AppAuth, AuthProvider, gettextCatalog) {
     var TWO_WEEKS = 1000 * 60 * 60 * 24 * 7 * 2;
     var isFireFox = typeof InstallTrigger !== 'undefined';
@@ -17,7 +17,7 @@ angular.module('com.module.users')
      var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
      var isChrome = !!window.chrome && !isOpera;
      var isIE = false || !!document.documentMode;*/
-    BrowserPluginCommsMsg.listen(function () {
+    UserLoginOrLogoutMsg.listen(function () {
       $scope.showDownloadPluginButton = false;
     });
     $scope.showDownloadPluginButton = isFireFox;
@@ -51,11 +51,13 @@ angular.module('com.module.users')
       attr: {
         required: true
       }
-    }, {
-      property: 'rememberMe',
-      label: gettextCatalog.getString('Stay signed in'),
-      type: 'checkbox'
-    }];
+    }
+      /*      , {
+       property: 'rememberMe',
+       label: gettextCatalog.getString('Stay signed in'),
+       type: 'checkbox'
+       }*/
+    ];
     $scope.options = {
       validation: {
         enabled: true,
@@ -77,7 +79,7 @@ angular.module('com.module.users')
         });
       }
     });
-    $scope.getPlugin = function(){
+    $scope.getPlugin = function () {
       //All we do here is make the 'GetPlugin' button go away
       $scope.showDownloadPluginButton = false;
     };

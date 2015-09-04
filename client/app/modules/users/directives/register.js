@@ -9,7 +9,8 @@
 angular.module('com.module.users')
   .directive('register', function() {
     return {
-      templateUrl: 'modules/users/views/register.html',
+      templateUrl: 'modules/users/views/register',
+      //templateUrl: 'modules/users/views/register.html',
       restrict: 'E'
     };
   });

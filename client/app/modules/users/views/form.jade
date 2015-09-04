@@ -15,8 +15,9 @@
           i.fa.fa-trash-o
   .box-body
     .alert.alert-danger(translate, ng-if='addError') Could not add user!
-    formly-form(result='user', fields='formFields', options='formOptions', ng-submit='onSubmit()')
-    .form-group(ng-if='!user.id')
+    form(ng-submit='onSubmit()' novalidate)
+      formly-form(model='user', fields='formFields')
+    //.form-group(ng-if='!user.id')
       label(translate) Password
       input.form-control(required, type='text', ng-model='user.password')
   .overlay(ng-if='loading')

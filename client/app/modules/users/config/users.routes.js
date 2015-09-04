@@ -39,7 +39,8 @@ angular.module('com.module.users')
       })
       .state('app.users.edit', {
         url: '/edit/:id',
-        templateUrl: 'modules/users/views/form.html',
+        //templateUrl: 'modules/users/views/form.html',
+        templateUrl: 'modules/users/views/form',
         controller: 'UsersCtrl',
         authenticate: true
       })

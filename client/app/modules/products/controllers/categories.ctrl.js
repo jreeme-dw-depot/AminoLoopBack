@@ -24,11 +24,11 @@ angular.module('com.module.products')
       required: true
     }];
 
-    $scope.formOptions = {
+/*    $scope.formOptions = {
       uniqueFormId: true,
       hideSubmit: false,
       submitCopy: gettextCatalog.getString('Save')
-    };
+    };*/
 
     $scope.onSubmit = function() {
       Category.upsert($scope.category, function() {
