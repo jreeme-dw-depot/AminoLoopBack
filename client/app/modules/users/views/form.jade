@@ -17,7 +17,15 @@
     .alert.alert-danger(translate, ng-if='addError') Could not add user!
     form(ng-submit='onSubmit()' novalidate)
       formly-form(model='user', fields='formFields')
-    .container
+    div(ng-repeat='role in listA')
+      input(type='checkbox',
+      checkbox-group,
+      checklist-model='getRoles()',
+      checklist-value='role',
+      ng-change='roleChecked(role, checked)')
+      label {{role}}
+      //input(type='checkbox', checklist-model='listA', checklist-value='role') {{role}}
+    //.container
         .row
           .col-md-12.text-center
             h3 Pick List Example

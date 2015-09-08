@@ -21,7 +21,7 @@ module.exports = function(app) {
 
     var users = [];
     var roles = [{
-      name: 'admin',
+      name: 'admins',
       users: [{
         firstName: 'Admin',
         lastName: 'User',
@@ -30,14 +30,11 @@ module.exports = function(app) {
         password: 'admin'
       }]
     }, {
+      name: 'guests',
+      users: []
+    }, {
       name: 'users',
-      users: [{
-        firstName: 'Guest',
-        lastName: 'User',
-        email: 'user@user.com',
-        username: 'user',
-        password: 'user'
-      }]
+      users: []
     }];
 
     roles.forEach(function(role) {
