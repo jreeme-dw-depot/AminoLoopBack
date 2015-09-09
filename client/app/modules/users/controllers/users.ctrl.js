@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('com.module.users');
 app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
-                                      User, gettextCatalog) {
+                                      User, Role, AppAuth, gettextCatalog) {
   if ($stateParams.id) {
     User.findOne({
       filter: {
@@ -42,6 +42,47 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
           required: true
         }
       }];
+      Role.find().$promise.then(function (allRoles) {
+        //TODO: Maybe un-nest this loop?
+        $scope.user.memberRoles = [];
+        var displayRoles = [];
+        for (var i = 0; i < allRoles.length; ++i) {
+          displayRoles.push({
+            value: allRoles[i].name,
+            name: allRoles[i].name
+          });
+          for (var j = 0; j < AppAuth.currentUser.roles.length; ++j) {
+            if (AppAuth.currentUser.roles[j].name === allRoles[i].name) {
+              $scope.user.memberRoles.push(allRoles[i].name);
+              break;
+            }
+          }
+        }
+        $scope.formFields.push(
+          {
+            key: 'memberRoles',
+            type: 'multiCheckbox',
+            templateOptions: {
+              label: 'Roles',
+              options: displayRoles,
+              disabled: !AppAuth.currentUser.isAdmin
+            }
+          }
+        );
+      });
+      /*      if(AppAuth.currentUser.isAdmin){
+       $scope.formFields.push(
+       {
+       key: 'roles',
+       type: 'multiCheckbox',
+       templateOptions: {
+       label: 'Roles',
+       options: $scope.user.roles,
+       labelProp: 'name'
+       }
+       }
+       );
+       }*/
     }, function (err) {
       console.log(err);
     });

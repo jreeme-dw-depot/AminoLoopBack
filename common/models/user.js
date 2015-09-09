@@ -12,12 +12,12 @@ module.exports = function (user) {
     next();
   });
 
-  user.isAdmin = function(cb){
+/*  user.isAdmin = function(cb){
     cb(null, true);
   }
 
   user.remoteMethod('isAdmin',{
     http: {path: '/isAdmin', verb: 'get'},
     returns: {arg: 'isAdmin', type: 'boolean'}
-  })
+  })*/
 };

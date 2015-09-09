@@ -94,13 +94,31 @@ angular.module('com.module.users')
           var next = $location.nextAfterLogin || '/';
           $location.nextAfterLogin = null;
           AppAuth.currentUser = $scope.loginResult.user;
-          CoreService.toastSuccess(gettextCatalog.getString('Logged in'),
-            gettextCatalog.getString('You are logged in!'));
-          if (next === '/login') {
-            next = '/';
-          }
-          $location.path(next);
-          BrowserPluginService.notifyPluginOfLoginSuccess(user);
+          //Find a little more out about our current user
+          User.findOne({
+            filter: {
+              where: {
+                id: AppAuth.currentUser.id
+              },
+              include: ['roles', 'identities', 'credentials', 'accessTokens']
+            }
+          }, function (result, responseHeaders) {
+            AppAuth.currentUser.roles = result.roles;
+            var admins = AppAuth.currentUser.roles.filter(function (u) {
+              return u.name === 'admins';
+            });
+            AppAuth.currentUser.isAdmin = (admins.length > 0);
+            //And now toast our login success!
+            CoreService.toastSuccess(gettextCatalog.getString('Logged in'),
+              gettextCatalog.getString('You are logged in!'));
+            if (next === '/login') {
+              next = '/';
+            }
+            $location.path(next);
+            BrowserPluginService.notifyPluginOfLoginSuccess(user);
+          }, function (res) {
+            $scope.loginError = res.data.error;
+          });
         },
         function (res) {
           $scope.loginError = res.data.error;
