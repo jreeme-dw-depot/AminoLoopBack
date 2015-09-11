@@ -47,12 +47,6 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
       disabled: !$scope.currentUser.isAdmin
     }
   }];
-  //Go out and get all existing roles
-  /*  Role.find({},function(roles, responseHeaders){
-   },
-   function(err){
-   console.log(err);
-   });*/
   Role.find().$promise
     .then(function (allRoles) {
       //TODO: Maybe un-nest this loop?
@@ -69,24 +63,55 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
   //if $stateParams.id is defined we will be editing an existing user.
   //Otherwise creating a new user
   if ($stateParams.id) {
-    User.findOne({
-      filter: {
-        where: {
-          id: $stateParams.id
-        },
-        include: ['roles', 'identities', 'credentials', 'accessTokens']
-      }
-    }, function (result) {
-      $scope.user = result;
-      for (var j = 0; j < $scope.currentUser.roles.length; ++j) {
-        if ($scope.currentUser.roles[j].name === $scope.displayRoles[i].name) {
-          $scope.user.memberRoles.push($scope.displayRoles[i].name);
-          break;
+    if(true){
+     User.find(
+       {
+         filter: {
+           where: {
+             id: $stateParams.id
+           },
+           include: ['roles', 'identities', 'credentials', 'accessTokens']
+         }
+       }
+     ).$promise
+       .then(function(selectedUserArray){
+         if(selectedUserArray.length !== 1){
+           return;
+         }
+         $scope.user = selectedUserArray[0];
+         $scope.user.memberRoles = [];
+         for(var i = 0;i < $scope.displayRoles.length;++i){
+           for (var j = 0; j < $scope.user.roles.length; ++j) {
+             if ($scope.user.roles[j].name === $scope.displayRoles[i].name) {
+               $scope.user.memberRoles.push($scope.displayRoles[i].name);
+               break;
+             }
+           }
+         }
+       })
+       .catch(function (err) {
+         console.log(err);
+       });
+    }else{
+      User.findOne({
+        filter: {
+          where: {
+            id: $stateParams.id
+          },
+          include: ['roles', 'identities', 'credentials', 'accessTokens']
         }
-      }
-    }, function (err) {
-      console.log(err);
-    });
+      }, function (result) {
+        $scope.user = result;
+        for (var j = 0; j < $scope.currentUser.roles.length; ++j) {
+          if ($scope.currentUser.roles[j].name === $scope.displayRoles[i].name) {
+            $scope.user.memberRoles.push($scope.displayRoles[i].name);
+            break;
+          }
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    }
   }
 
   $scope.delete = function (id) {
@@ -121,23 +146,23 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
     .then(function(){
       $scope.loading = false;
     });
-  return;
-  $scope.safeDisplayedUsers = User.find({
-    filter: {
-      include: ['roles']
-    }
-  }, function () {
-    $scope.loading = false;
-  });
-  $scope.displayedUsers = [].concat($scope.safeDisplayedUsers);
   $scope.onSubmit = function () {
-    User.upsert($scope.user, function () {
+    $scope.user.password = 'password';
+    var newUser = {
+      email: 'newuser@newuser.com',
+      firstName: 'New',
+      lastName: 'User',
+      username: 'newuser',
+      password: 'password'
+    };
+    User.upsert(newUser, function () {
       CoreService.toastSuccess(gettextCatalog.getString('User saved'),
         gettextCatalog.getString('This user is save!'));
       $state.go('^.list');
     }, function (err) {
       CoreService.toastError(gettextCatalog.getString(
         'Error saving user: ', +err));
+      $state.go('^.list');
     });
   };
   return;
