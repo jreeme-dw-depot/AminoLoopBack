@@ -2,6 +2,72 @@
 var app = angular.module('com.module.users');
 app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
                                       User, Role, AppAuth, gettextCatalog) {
+  //Put the currentUser in $scope for convenience
+  $scope.currentUser = AppAuth.currentUser;
+  //Put displayRoles in $scope
+  $scope.displayRoles = [];
+  $scope.user = {};
+  $scope.user.memberRoles = [];
+  //Setup formly fields for add & edit routes
+  $scope.formFields = [{
+    key: 'email',
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('Username'),
+      disabled: true
+    }
+  }, {
+    key: 'email',
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('E-mail'),
+      type: 'email',
+      required: true
+    }
+  }, {
+    key: 'firstName',
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('First name'),
+      required: true
+    }
+  }, {
+    key: 'lastName',
+    type: 'input',
+    templateOptions: {
+      label: gettextCatalog.getString('Last name'),
+      required: true
+    }
+  }, {
+    key: 'memberRoles',
+    type: 'multiCheckbox',
+    templateOptions: {
+      label: 'Roles',
+      options: $scope.displayRoles,
+      disabled: !$scope.currentUser.isAdmin
+    }
+  }];
+  //Go out and get all existing roles
+  /*  Role.find({},function(roles, responseHeaders){
+   },
+   function(err){
+   console.log(err);
+   });*/
+  Role.find().$promise
+    .then(function (allRoles) {
+      //TODO: Maybe un-nest this loop?
+      for (var i = 0; i < allRoles.length; ++i) {
+        $scope.displayRoles.push({
+          value: allRoles[i].name,
+          name: allRoles[i].name
+        });
+      }
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+  //if $stateParams.id is defined we will be editing an existing user.
+  //Otherwise creating a new user
   if ($stateParams.id) {
     User.findOne({
       filter: {
@@ -12,83 +78,17 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
       }
     }, function (result) {
       $scope.user = result;
-      $scope.formFields = [{
-        key: 'email',
-        type: 'input',
-        templateOptions: {
-          label: gettextCatalog.getString('Username'),
-          disabled: true
+      for (var j = 0; j < $scope.currentUser.roles.length; ++j) {
+        if ($scope.currentUser.roles[j].name === $scope.displayRoles[i].name) {
+          $scope.user.memberRoles.push($scope.displayRoles[i].name);
+          break;
         }
-      }, {
-        key: 'email',
-        type: 'input',
-        templateOptions: {
-          label: gettextCatalog.getString('E-mail'),
-          type: 'email',
-          required: true
-        }
-      }, {
-        key: 'firstName',
-        type: 'input',
-        templateOptions: {
-          label: gettextCatalog.getString('First name'),
-          required: true
-        }
-      }, {
-        key: 'lastName',
-        type: 'input',
-        templateOptions: {
-          label: gettextCatalog.getString('Last name'),
-          required: true
-        }
-      }];
-      Role.find().$promise.then(function (allRoles) {
-        //TODO: Maybe un-nest this loop?
-        $scope.user.memberRoles = [];
-        var displayRoles = [];
-        for (var i = 0; i < allRoles.length; ++i) {
-          displayRoles.push({
-            value: allRoles[i].name,
-            name: allRoles[i].name
-          });
-          for (var j = 0; j < AppAuth.currentUser.roles.length; ++j) {
-            if (AppAuth.currentUser.roles[j].name === allRoles[i].name) {
-              $scope.user.memberRoles.push(allRoles[i].name);
-              break;
-            }
-          }
-        }
-        $scope.formFields.push(
-          {
-            key: 'memberRoles',
-            type: 'multiCheckbox',
-            templateOptions: {
-              label: 'Roles',
-              options: displayRoles,
-              disabled: !AppAuth.currentUser.isAdmin
-            }
-          }
-        );
-      });
-      /*      if(AppAuth.currentUser.isAdmin){
-       $scope.formFields.push(
-       {
-       key: 'roles',
-       type: 'multiCheckbox',
-       templateOptions: {
-       label: 'Roles',
-       options: $scope.user.roles,
-       labelProp: 'name'
-       }
-       }
-       );
-       }*/
+      }
     }, function (err) {
       console.log(err);
     });
-  } else {
-    $scope.user = {};
   }
+
   $scope.delete = function (id) {
     CoreService.confirm(gettextCatalog.getString('Are you sure?'),
       gettextCatalog.getString('Deleting this cannot be undone'),
@@ -110,6 +110,18 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
       });
   };
   $scope.loading = true;
+  User.find({filter:{include:['roles']}}).$promise
+    .then(function(allUsers){
+      $scope.safeDisplayedUsers = allUsers;
+      $scope.displayedUsers = [].concat($scope.safeDisplayedUsers);
+    })
+    .catch(function (err) {
+      console.log(err);
+    })
+    .then(function(){
+      $scope.loading = false;
+    });
+  return;
   $scope.safeDisplayedUsers = User.find({
     filter: {
       include: ['roles']
@@ -128,6 +140,7 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
         'Error saving user: ', +err));
     });
   };
+  return;
   //Dual list management for Roles/Teams
   //http://www.bootply.com/mRcBel7RWm
   var userData = [

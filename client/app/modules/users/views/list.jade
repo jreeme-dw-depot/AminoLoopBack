@@ -14,11 +14,11 @@
           th(st-sort='lastName') Last Name
         tr
           th
-            button.btn.btn-block.btn-success
+            a.btn.btn-block.btn-success(ui-sref='^.add')
               span.glyphicon.glyphicon-plus(style="margin-right: 10px")
               span Add User
           th
-            input.input-sm.form-control(st-search='username' type='search' placeholder='search for username')
+            input.input-sm.form-control(st-search='username' type='search' placeholder='search')
       tbody
         tr(ng-repeat='user in displayedUsers')
           td(style='width: 120px')
