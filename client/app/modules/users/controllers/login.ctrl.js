@@ -10,7 +10,7 @@
  **/
 angular.module('com.module.users')
   .controller('LoginCtrl', function ($scope, $routeParams, $location, BrowserPluginService, UserLoginOrLogoutMsg,
-                                     CoreService, User, AppAuth, AuthProvider, gettextCatalog) {
+                                     CoreService, AminoUser, AppAuth, AuthProvider, gettextCatalog) {
     var TWO_WEEKS = 1000 * 60 * 60 * 24 * 7 * 2;
     var isFireFox = typeof InstallTrigger !== 'undefined';
     /*    var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
@@ -84,7 +84,7 @@ angular.module('com.module.users')
       $scope.showDownloadPluginButton = false;
     };
     $scope.login = function () {
-      $scope.loginResult = User.login({
+      $scope.loginResult = AminoUser.login({
           include: 'user',
           rememberMe: $scope.credentials.rememberMe
         }, $scope.credentials,
@@ -95,7 +95,7 @@ angular.module('com.module.users')
           $location.nextAfterLogin = null;
           AppAuth.currentUser = $scope.loginResult.user;
           //Find a little more out about our current user
-          User.findOne({
+          AminoUser.findOne({
             filter: {
               where: {
                 id: AppAuth.currentUser.id

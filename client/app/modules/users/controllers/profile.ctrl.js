@@ -1,8 +1,8 @@
 'use strict';
 angular.module('com.module.users')
-  .controller('ProfileCtrl', function($scope, CoreService, User, gettextCatalog) {
+  .controller('ProfileCtrl', function($scope, CoreService, AminoUser, gettextCatalog) {
 
-    $scope.user = User.getCurrent(function(user) {
+    $scope.user = AminoUser.getCurrent(function(user) {
       console.log(user);
     }, function(err) {
       console.log(err);
@@ -37,7 +37,7 @@ angular.module('com.module.users')
     };*/
 
     $scope.onSubmit = function() {
-      User.upsert($scope.user, function() {
+      AminoUser.upsert($scope.user, function() {
         CoreService.toastSuccess(gettextCatalog.getString(
           'Profile saved'), gettextCatalog.getString(
           'Enjoy the new you!'));

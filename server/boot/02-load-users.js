@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     log('Creating roles and users');
 
-    var User = app.models.User;
+    var AminoUser = app.models.AminoUser;
     var Role = app.models.Role;
     var RoleMapping = app.models.RoleMapping;
 
@@ -48,7 +48,7 @@ module.exports = function(app) {
           (created) ? log('created role', createdRole.name)
                     : log('found role', createdRole.name);
           role.users.forEach(function(roleUser) {
-            User.findOrCreate(
+            AminoUser.findOrCreate(
               {where: {username: roleUser.username}}, // find
               roleUser, // create
               function(err, createdUser, created) {

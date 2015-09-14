@@ -7,7 +7,7 @@
   "relations": {
     "user": {
       "type": "belongsTo",
-      "model": "user",
+      "model": "AminoUser",
       "foreignKey": "userId"
     }
   },

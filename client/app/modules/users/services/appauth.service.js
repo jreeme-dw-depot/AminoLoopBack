@@ -4,7 +4,7 @@
 /*jshint camelcase: false */
 
 angular.module('com.module.users')
-  .factory('AppAuth', function($cookies, User, LoopBackAuth, $http) {
+  .factory('AppAuth', function($cookies, LoopBackAuth, $http) {
     var self = {
       login: function(data, cb) {
         LoopBackAuth.currentUserId = LoopBackAuth.accessTokenId = null;
@@ -31,7 +31,7 @@ angular.module('com.module.users')
               cb({});
             }
           }, function() {
-            console.log('User.login() err', arguments);
+            console.log('AminoUser.login() err', arguments);
             LoopBackAuth.currentUserId = LoopBackAuth.accessTokenId =
               null;
             LoopBackAuth.save();
@@ -69,7 +69,7 @@ angular.module('com.module.users')
               }
               cb(self.currentUser);
             }, function() {
-              console.log('User.getCurrent() err', arguments);
+              console.log('AminoUser.getCurrent() err', arguments);
               LoopBackAuth.currentUserId = LoopBackAuth.accessTokenId =
                 null;
               LoopBackAuth.save();

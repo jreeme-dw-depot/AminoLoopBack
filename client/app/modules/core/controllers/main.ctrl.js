@@ -12,7 +12,7 @@
  **/
 angular.module('com.module.core')
   .controller('MainCtrl', function ($scope, $rootScope, $state, $location, UserLoginOrLogoutMsg,
-                                    CoreService, User, AppAuth, gettextCatalog) {
+                                    CoreService, AminoUser, AppAuth, gettextCatalog) {
     //This currentUser is for filling out the Login screen and has nothing to do with
     //whether anyone is logged in
     UserLoginOrLogoutMsg.listen(function (_event, param) {
@@ -21,12 +21,12 @@ angular.module('com.module.core')
       }
       $scope.noOneLoggedIn = !param;
     });
-    $scope.currentUser = User.getCurrent();
+    $scope.currentUser = AminoUser.getCurrent();
     //We have to call AppAuth to see if anyone is logged in
     $scope.noOneLoggedIn = !AppAuth.currentUser;
     $scope.menuoptions = $rootScope.menu;
     $scope.logout = function () {
-      User.logout(function () {
+      AminoUser.logout(function () {
         UserLoginOrLogoutMsg.broadcast(false);
         $state.go('login');
         CoreService.toastSuccess(gettextCatalog.getString('Logged out'),

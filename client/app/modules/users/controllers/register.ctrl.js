@@ -10,7 +10,7 @@
  **/
 angular.module('com.module.users')
   .controller('RegisterCtrl', function($scope, $routeParams, $location, $filter,
-    CoreService, User, AppAuth, gettextCatalog) {
+    CoreService, AminoUser, AppAuth, gettextCatalog) {
 
     $scope.registration = {
       firstName: '',
@@ -112,10 +112,10 @@ angular.module('com.module.users')
 
       $scope.registration.username = $scope.registration.email;
       delete $scope.registration.confirmPassword;
-      $scope.user = User.save($scope.registration,
+      $scope.user = AminoUser.save($scope.registration,
         function() {
 
-          $scope.loginResult = User.login({
+          $scope.loginResult = AminoUser.login({
               include: 'user',
               rememberMe: true
             }, $scope.registration,

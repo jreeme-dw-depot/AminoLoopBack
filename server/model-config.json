@@ -70,7 +70,7 @@
     "dataSource": "db",
     "public": true
   },
-  "user": {
+  "AminoUser": {
     "dataSource": "db",
     "public": true
   }

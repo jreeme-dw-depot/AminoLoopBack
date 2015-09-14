@@ -46,8 +46,8 @@ angular.module('com.module.sandbox')
       .state('app.sandbox.users', {
         url: '/users',
         template: '<pre>{{users | json}}</pre>',
-        controller: function($scope, User) {
-          $scope.users = User.find({}, function(err, data) {
+        controller: function($scope, AminoUser) {
+          $scope.users = AminoUser.find({}, function(err, data) {
             console.log(data);
             return;
           });

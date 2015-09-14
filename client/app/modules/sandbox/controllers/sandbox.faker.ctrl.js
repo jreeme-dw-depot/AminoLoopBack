@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('com.module.sandbox');
 app.controller('SandboxFakerCtrl', function($scope, $window, CoreService,
-  FakeService, Event, Post, User) {
+  FakeService, Event, Post, AminoUser) {
 
   $scope.faker = [];
 
@@ -20,7 +20,7 @@ app.controller('SandboxFakerCtrl', function($scope, $window, CoreService,
         password: FakeService.faker.internet.password()
       };
       $scope.faker.push(fake);
-      User.create(fake);
+      AminoUser.create(fake);
     }
     CoreService.toastSuccess('Created ' + $scope.records + ' users');
   };
