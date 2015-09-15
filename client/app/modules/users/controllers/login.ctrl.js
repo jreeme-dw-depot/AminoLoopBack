@@ -84,10 +84,11 @@ angular.module('com.module.users')
       $scope.showDownloadPluginButton = false;
     };
     $scope.login = function () {
+      var credentials = $scope.credentials;
       $scope.loginResult = AminoUser.login({
           include: 'user',
-          rememberMe: $scope.credentials.rememberMe
-        }, $scope.credentials,
+          rememberMe: credentials.rememberMe
+        }, credentials,
         function (user) {
           console.log(user);
           console.log(user.user);

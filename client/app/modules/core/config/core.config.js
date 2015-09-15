@@ -60,6 +60,7 @@ app.run(function ($rootScope, Setting, gettextCatalog) {
   };
 });
 app.config(function (formlyConfigProvider) {
+  formlyConfigProvider.extras.removeChromeAutoComplete = true;
   //Don't need to do this with formly v.6.x. Using Bootstrap types.
   return;
   var templates = 'modules/core/views/elements/fields/';

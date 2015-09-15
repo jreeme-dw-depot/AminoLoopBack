@@ -2,12 +2,67 @@
 var app = angular.module('com.module.users');
 app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
                                       AminoUser, Role, AppAuth, gettextCatalog) {
+  //Define a couple of scope methods
+  $scope.delete = function (id) {
+    CoreService.confirm(gettextCatalog.getString('Are you sure?'),
+      gettextCatalog.getString('Deleting this cannot be undone'),
+      function () {
+        AminoUser.deleteById(id, function () {
+            CoreService.toastSuccess(gettextCatalog.getString(
+              'User deleted'), gettextCatalog.getString(
+              'Your user is deleted!'));
+            $state.go('app.users.list');
+          },
+          function (err) {
+            CoreService.toastError(gettextCatalog.getString(
+              'Error deleting user'), gettextCatalog.getString(
+              'Your user is not deleted:' + err));
+          });
+      },
+      function () {
+        return false;
+      });
+  };
+  $scope.onSubmit = function () {
+    var newUser = {
+      email: $scope.user.email,
+      firstName: $scope.user.firstName,
+      lastName: $scope.user.lastName,
+      username: $scope.user.email,
+      password: $scope.user.password
+    };
+    AminoUser.create(newUser).$promise
+      .then(function (newUser) {
+        CoreService.toastSuccess('New user created.', newUser.username);
+        var newUserId = newUser.id;
+        for (var i = 0; i < $scope.user.memberRoles.length; ++i) {
+          var role = $scope.user.memberRoles[i];
+          for (var j = 0; j < $scope.displayRoles.length; ++j) {
+            if (role === $scope.displayRoles[j].name) {
+              var roleId = $scope.displayRoles[j].id;
+              AminoUser.addRole({userId: newUserId, roleId: roleId}, function (role) {
+                CoreService.toastSuccess('Role added: ' + role.name);
+              });
+              break;
+            }
+          }
+        }
+        $state.go('^.list');
+      })
+      .catch(function (err) {
+        console.log(err);
+        CoreService.toastError('Error creating user: ' + newUser.username, err);
+        $state.go('^.list');
+      });
+  };
+
   //Put the currentUser in $scope for convenience
   $scope.currentUser = AppAuth.currentUser;
   //Put displayRoles in $scope
   $scope.displayRoles = [];
   $scope.user = {};
   $scope.user.memberRoles = [];
+
   //Setup formly fields for add & edit routes
   $scope.formFields = [{
     key: 'email',
@@ -57,7 +112,6 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
   }];
   Role.find().$promise
     .then(function (allRoles) {
-      //TODO: Maybe un-nest this loop?
       for (var i = 0; i < allRoles.length; ++i) {
         $scope.displayRoles.push({
           value: allRoles[i].name,
@@ -65,108 +119,57 @@ app.controller('UsersCtrl', function ($scope, $stateParams, $state, CoreService,
           id: allRoles[i].id
         });
       }
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-  //if $stateParams.id is defined we will be editing an existing user.
-  //Otherwise creating a new user
-  if ($stateParams.id) {
-    AminoUser.find(
-      {
-        filter: {
-          where: {
-            id: $stateParams.id
-          },
-          include: ['roles', 'identities', 'credentials', 'accessTokens']
-        }
-      }
-    ).$promise
-      .then(function (selectedUserArray) {
-        if (selectedUserArray.length !== 1) {
-          return;
-        }
-        $scope.user = selectedUserArray[0];
-        $scope.user.memberRoles = [];
-        for (var i = 0; i < $scope.displayRoles.length; ++i) {
-          for (var j = 0; j < $scope.user.roles.length; ++j) {
-            if ($scope.user.roles[j].name === $scope.displayRoles[i].name) {
-              $scope.user.memberRoles.push($scope.displayRoles[i].name);
-              break;
-            }
-          }
-        }
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  }else{
-    $scope.user = {};
-  }
-  $scope.delete = function (id) {
-    CoreService.confirm(gettextCatalog.getString('Are you sure?'),
-      gettextCatalog.getString('Deleting this cannot be undone'),
-      function () {
-        AminoUser.deleteById(id, function () {
-            CoreService.toastSuccess(gettextCatalog.getString(
-              'User deleted'), gettextCatalog.getString(
-              'Your user is deleted!'));
-            $state.go('app.users.list');
-          },
-          function (err) {
-            CoreService.toastError(gettextCatalog.getString(
-              'Error deleting user'), gettextCatalog.getString(
-              'Your user is not deleted:' + err));
-          });
-      },
-      function () {
-        return false;
-      });
-  };
-  $scope.loading = true;
-  AminoUser.find({filter: {include: ['roles']}}).$promise
-    .then(function (allUsers) {
-      $scope.safeDisplayedUsers = allUsers;
-      $scope.displayedUsers = [].concat($scope.safeDisplayedUsers);
-    })
-    .catch(function (err) {
-      console.log(err);
-    })
-    .then(function () {
-      $scope.loading = false;
-    });
-  $scope.onSubmit = function () {
-    var newUser = {
-      email: $scope.user.email,
-      firstName: $scope.user.firstName,
-      lastName: $scope.user.lastName,
-      username: $scope.user.email,
-      password: $scope.user.password
-    };
-    AminoUser.create(newUser).$promise
-      .then(function (newUser) {
-        CoreService.toastSuccess('New user created.', newUser.username);
-        var newUserId = newUser.id;
-        for (var i = 0; i < $scope.user.memberRoles.length; ++i) {
-          var role = $scope.user.memberRoles[i];
-          for (var j = 0; j < $scope.displayRoles.length; ++j) {
-            if (role === $scope.displayRoles[j].name) {
-              var roleId = $scope.displayRoles[j].id;
-              AminoUser.addRole({userId: newUserId, roleId: roleId}, function (role) {
-                CoreService.toastSuccess('Role added: ' + role.name);
+      $scope.loading = true;
+      AminoUser.find({filter: {include: ['roles']}}).$promise
+        .then(function (allUsers) {
+          $scope.safeDisplayedUsers = allUsers;
+          $scope.displayedUsers = [].concat($scope.safeDisplayedUsers);
+          //if $stateParams.id is defined we will be editing an existing user.
+          //Otherwise creating a new user
+          if ($stateParams.id) {
+            AminoUser.find(
+              {
+                filter: {
+                  where: {
+                    id: $stateParams.id
+                  },
+                  include: ['roles', 'identities', 'credentials', 'accessTokens']
+                }
+              }
+            ).$promise
+              .then(function (selectedUserArray) {
+                if (selectedUserArray.length !== 1) {
+                  return;
+                }
+                $scope.user = selectedUserArray[0];
+                $scope.user.memberRoles = [];
+                for (var i = 0; i < $scope.displayRoles.length; ++i) {
+                  for (var j = 0; j < $scope.user.roles.length; ++j) {
+                    if ($scope.user.roles[j].name === $scope.displayRoles[i].name) {
+                      $scope.user.memberRoles.push($scope.displayRoles[i].name);
+                      break;
+                    }
+                  }
+                }
+              })
+              .catch(function (err) {
+                console.log(err);
               });
-              break;
-            }
+          }else{
+            //Hack to get around some sort of formly bug
+            //$scope.user.password = $scope.user.lastName = ' ';
           }
-        }
-        $state.go('^.list');
-      })
-      .catch(function (err) {
-        console.log(err);
-        CoreService.toastError('Error creating user: ' + newUser.username, err);
-        $state.go('^.list');
-      });
-  };
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
+        .then(function () {
+          $scope.loading = false;
+        });
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
   return;
   //Dual list management for Roles/Teams
   //http://www.bootply.com/mRcBel7RWm

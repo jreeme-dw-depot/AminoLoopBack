@@ -73,5 +73,41 @@
   "AminoUser": {
     "dataSource": "db",
     "public": true
+  },
+  "DwTransmission": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwTrailUrl": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwTrail": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwSetting": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwServiceType": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwRecipient": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwDomainItem": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwCrawlType": {
+    "dataSource": "db",
+    "public": true
+  },
+  "DwDomain": {
+    "dataSource": "db",
+    "public": true
   }
 }

@@ -38,12 +38,12 @@ angular.module('loopbackApp', [
   'gettext',
   'com.module.core',
   'com.module.about',
-  'com.module.events',
+/*  'com.module.events',
   'com.module.files',
   'com.module.notes',
   'com.module.pages',
   'com.module.posts',
-  'com.module.products',
+  'com.module.products',*/
   'com.module.sandbox',
   'com.module.settings',
   'com.module.users'
